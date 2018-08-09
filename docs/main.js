@@ -4,6 +4,7 @@ var weight = 3;
 var inverted = false;
 
 window.onload = function() {
+	darkTheme(inverted);
 	text = document.getElementById("text");
 	file = "select.png";
 	filechanged();
