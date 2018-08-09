@@ -2,10 +2,10 @@
 <head>
 	<script src="main.js"></script>
 </head>
-<body>
-	<input id="file" type="file" onchange="filechanged(this)">
-	<input type="checkbox" onchange="inverted = this.checked; if(file.files) filechanged(file);">Invert
-	<input type="range" min="0" max="6" value="3" step="0.1" onchange="weight = this.value; if(file.files) filechanged(file);">Weight
+<body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()">
+	<input id="file" type="file" onchange="filechanged(this.files[0])">
+	<input type="checkbox" onchange="inverted = this.checked; filechanged();">Invert
+	<input type="range" min="0" max="6" value="3" step="0.1" onchange="weight = this.value; filechanged();">Weight
 	<pre id="text"></pre>
 </body>
 </html>

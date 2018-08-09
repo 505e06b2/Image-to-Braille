@@ -1,16 +1,12 @@
-var file = {};
+var file = null;
 var text = {};
 var weight = 3;
 var inverted = false;
 
 window.onload = function() {
 	text = document.getElementById("text");
-	file = document.getElementById("file");
-	
-	img = new Image();
-	canvas = document.createElement("CANVAS");
-	img.onload = function() {tobraille(img)};
-	img.src = "select.png";
+	file = "select.png";
+	filechanged();
 }
 
 function get_char(current) {
@@ -83,5 +79,6 @@ function filechanged(input) {
 	img = new Image();
 	canvas = document.createElement("CANVAS");
 	img.onload = function() {tobraille(img)};
-	if(input.files) img.src = URL.createObjectURL(input.files[0]);
+	if(input) file = URL.createObjectURL(input);
+	img.src = file;
 }
