@@ -1,6 +1,7 @@
 <html>
 <head>
 	<script src="main.js"></script>
+	<script src="dithering.js"></script>
 	<script>
 		function darkTheme(bool) {
 			document.body.style.background = ((bool) ? '#333' : '#eee');
@@ -11,6 +12,7 @@
 <body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()">
 	<input id="file" type="file" onchange="filechanged(this.files[0])">
 	<input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();">Invert
+	<input type="checkbox" onchange="dithering = this.checked; filechanged();">Dithering
 	<input type="range" min="0" max="6" value="3" step="0.1" onchange="weight = this.value; filechanged();">Weight
 	<input type="number" min="1" value="100" onchange="max_width = this.value; filechanged();">Width
 	<pre id="text"></pre>

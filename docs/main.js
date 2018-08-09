@@ -3,6 +3,9 @@ var text = {};
 var weight = 3;
 var max_width = 100;
 var inverted = false;
+var dithering = false;
+var canvas;
+var ctx;
 
 window.onload = function() {
 	darkTheme(inverted);
@@ -41,8 +44,8 @@ function tobraille(img) {
 		canvas.height = nearest_multiple(height, 4);
 	}
 	
-	var ctx = canvas.getContext("2d");
-	ctx.fillStyle="#FFFFFF";
+	ctx = canvas.getContext("2d");
+	ctx.fillStyle="#FFFFFF"; //get rid of alpha
 	ctx.fillRect(0,0, canvas.width,canvas.height);
 	
 	ctx.mozImageSmoothingEnabled = false;
@@ -51,6 +54,8 @@ function tobraille(img) {
 	ctx.imageSmoothingEnabled = false;
 	
 	ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+	
+	if(dithering) rgb2bin();
 	
 	var output_line = "";
 
