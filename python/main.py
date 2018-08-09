@@ -1,3 +1,4 @@
+#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 from PIL import Image
 import sys, codecs
@@ -18,6 +19,14 @@ except IndexError:
     print "Use file as args / drag file into this script"
     raise SystemExit
 
+#remove alpha channel
+try:
+	bg = Image.new("RGB", im.size, (255, 255, 255))
+	bg.paste(im, mask=im.split()[3]) # 3 is the alpha channel
+	im = bg
+except:
+	pass
+	
 #Resize img to fit better
 width = im.size[0]
 height = im.size[1]
@@ -45,10 +54,6 @@ for imgy in range(0, height, 4):
             for y in range(4):
                 temp = px[imgx+x, imgy+y]
                 avg = (temp[0] + temp[1] + temp[2]) / weight
-                try:
-                    if(temp[3] < 32): avg = 255
-                except:
-                    pass
                 if(avg < 128):
                     current[cindex] = 1
                 cindex += 1
