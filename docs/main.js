@@ -10,7 +10,7 @@ window.onload = function() {
 	img = new Image();
 	canvas = document.createElement("CANVAS");
 	img.onload = function() {tobraille(img)};
-	img.src = "mugi.png";
+	img.src = "select.png";
 }
 
 function get_char(current) {
