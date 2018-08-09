@@ -1,11 +1,14 @@
 var file = null;
 var text = {};
-var weight = 3;
 var max_width = 100;
 var inverted = false;
 var dithering = false;
 var canvas;
 var ctx;
+
+var r = 1;
+var g = 1;
+var b = 1;
 
 window.onload = function() {
 	darkTheme(inverted);
@@ -66,7 +69,7 @@ function tobraille(img) {
 			for(var x = 0; x < 2; x++) {
 				for(var y = 0; y < 4; y++) {
 					var temp = ctx.getImageData(imgx+x, imgy+y, 1,1).data;
-					var avg = (temp[0] + temp[1] + temp[2]) / weight;
+					var avg = ((temp[0]/r) + (temp[1]/g) + (temp[2]/b)) / 3;
 					if(inverted) {
 						if(avg > 128) current[cindex] = 1;
 					} else {
