@@ -38,7 +38,7 @@ function tobraille(img) {
 	{ //place image on canvas and keep aspect ratio
 		var width = img.width;
 		var height = img.height;
-		if(img.width > max_width) {
+		if(img.width != max_width) {
 			width = max_width;
 			height = width * img.height / img.width;
 		}
