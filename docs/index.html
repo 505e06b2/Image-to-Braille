@@ -9,7 +9,7 @@
 		}
 	</script>
 </head>
-<body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()">
+<body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()" onpaste="event.preventDefault(); filechanged(event.clipboardData.items[0].getAsFile());">
 	<input id="file" type="file" onchange="filechanged(this.files[0])">
 	<input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();">Invert
 	<input type="checkbox" onchange="dithering = this.checked; filechanged();">Dithering
