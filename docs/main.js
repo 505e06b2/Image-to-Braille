@@ -1,6 +1,6 @@
 var file = null;
 var text = {};
-var max_width = 100;
+var max_width = 50;
 var inverted = false;
 var dithering = false;
 var canvas;
@@ -11,9 +11,9 @@ var g = 1;
 var b = 1;
 
 window.onload = function() {
-	darkTheme(inverted);
 	text = document.getElementById("text");
 	file = "select.png";
+	darkTheme(inverted);
 	filechanged();
 }
 
@@ -38,8 +38,8 @@ function tobraille(img) {
 	{ //place image on canvas and keep aspect ratio
 		var width = img.width;
 		var height = img.height;
-		if(img.width != max_width) {
-			width = max_width;
+		if(img.width != (max_width * 2)) {
+			width = max_width * 2;
 			height = width * img.height / img.width;
 		}
 
@@ -82,7 +82,7 @@ function tobraille(img) {
 		}
 		output_line += "\n";
 	}
-	text.innerHTML = output_line;
+	text.value = output_line;
 }
 
 function filechanged(input) {

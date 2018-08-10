@@ -4,19 +4,55 @@
 	<script src="dithering.js"></script>
 	<script>
 		function darkTheme(bool) {
-			document.body.style.background = ((bool) ? '#333' : '#eee');
-			document.body.style.color = ((bool) ? '#eee' : '#333');
+			text.style.background = ((bool) ? '#333' : '#ccc');
+			text.style.color = ((bool) ? '#ccc' : '#333');
 		}
 	</script>
+	<style>
+		body {
+			background: #333;
+			color: #eee;
+			font-family:sans-serif;
+		}
+		
+		textarea {
+			position: absolute;
+			top:10px;
+			left:10px;
+			bottom:10px;
+			width:70vw;
+			padding:0px;
+			margin:0px;
+			resize: none;
+			display: block;
+		}
+		
+		div {
+			position: absolute;
+			top:10px;
+			right:10px;
+			bottom:10px;
+			width:25vw;
+			text-align:left;
+		}
+		
+		div span {
+			display: inline-block;
+			float:right;
+		}
+	</style>
 </head>
 <body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()" onpaste="event.preventDefault(); filechanged(event.clipboardData.items[0].getAsFile());">
-	<input id="file" type="file" onchange="filechanged(this.files[0])">
-	<input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();">Invert
-	<input type="checkbox" onchange="dithering = this.checked; filechanged();">Dithering
-	<input type="number" min="2" value="100" onchange="max_width = this.value; filechanged();">Width
-	<input type="range" min="0.01" max="10" value="1" step="0.01" onchange="r = this.value; filechanged();">Red
-	<input type="range" min="0.01" max="10" value="1" step="0.01" onchange="g = this.value; filechanged();">Green
-	<input type="range" min="0.01" max="10" value="1" step="0.01" onchange="b = this.value; filechanged();">Blue
-	<pre id="text"></pre>
+	<textarea id="text" readonly></textarea>
+	<div id="options">
+		<input id="file" type="file" onchange="filechanged(this.files[0])"><br><br>
+		<span><input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();"> Invert</span><br><br>
+		<span><input type="checkbox" onchange="dithering = this.checked; filechanged();"> Dithering</span><br><br>
+		<input type="number" min="2" value="50" step="2" onchange="max_width = this.value; filechanged();"><span>Width (chars)</span><br><br>
+		<input id="red" type="range" min="0.01" max="10" value="1" step="0.01" onchange="r = this.value; filechanged();"><button onclick="r = 1; document.getElementById('red').value = 1; filechanged()">Reset</button><span>Red</span><br><br>
+		<input id="green" type="range" min="0.01" max="10" value="1" step="0.01" onchange="g = this.value; filechanged();"><button onclick="g = 1; document.getElementById('green').value = 1; filechanged()">Reset</button><span>Green</span><br><br>
+		<input id="blue" type="range" min="0.01" max="10" value="1" step="0.01" onchange="b = this.value; filechanged();"><button onclick="b = 1; document.getElementById('blue').value = 1; filechanged()">Reset</button><span>Blue</span><br><br>
+		<button onclick="text.select(); document.execCommand('copy');">Copy to clipboard</button>
+	</div>
 </body>
 </html>
