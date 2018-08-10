@@ -52,7 +52,8 @@
 		<input id="red" type="range" min="0.01" max="10" value="1" step="0.01" onchange="r = this.value; filechanged();"><button onclick="r = 1; document.getElementById('red').value = 1; filechanged()">Reset</button><span>Red</span><br><br>
 		<input id="green" type="range" min="0.01" max="10" value="1" step="0.01" onchange="g = this.value; filechanged();"><button onclick="g = 1; document.getElementById('green').value = 1; filechanged()">Reset</button><span>Green</span><br><br>
 		<input id="blue" type="range" min="0.01" max="10" value="1" step="0.01" onchange="b = this.value; filechanged();"><button onclick="b = 1; document.getElementById('blue').value = 1; filechanged()">Reset</button><span>Blue</span><br><br>
-		<button onclick="text.select(); document.execCommand('copy');">Copy to clipboard</button>
+		<button onclick="text.select(); document.execCommand('copy');">Copy to clipboard</button><br><br>
+		Character Count: <span id="charcount">0</span>
 	</div>
 </body>
 </html>

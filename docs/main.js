@@ -5,6 +5,7 @@ var inverted = false;
 var dithering = false;
 var canvas;
 var ctx;
+var charcount;
 
 var r = 1;
 var g = 1;
@@ -13,6 +14,7 @@ var b = 1;
 window.onload = function() {
 	text = document.getElementById("text");
 	file = "select.png";
+	charcount = document.getElementById("charcount");
 	darkTheme(inverted);
 	filechanged();
 }
@@ -83,6 +85,7 @@ function tobraille(img) {
 		output_line += "\n";
 	}
 	text.value = output_line;
+	charcount.innerHTML = output_line.length;
 }
 
 function filechanged(input) {
