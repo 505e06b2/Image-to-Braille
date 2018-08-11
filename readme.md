@@ -1,7 +1,9 @@
 
-# ==> [Test it out!](https://505e06b2.github.io/Image-to-Braille/)
+# ==> [Test it out in your browser!](https://505e06b2.github.io/Image-to-Braille/)
 
-Python prototype:
+Use the JS version in [/docs](https://github.com/505e06b2/Image-to-Braille/tree/master/docs)
+
+Python prototype (obsolete):
 
 Dependancies: Pillow
 Usage: main.py [filepath] (Optional)[weight]
