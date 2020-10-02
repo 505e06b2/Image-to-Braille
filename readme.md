@@ -1,7 +1,7 @@
 
 # ==> [Test it out in your browser!](https://505e06b2.github.io/Image-to-Braille/)
 
-Use the JS version in [/docs](https://github.com/505e06b2/Image-to-Braille/tree/master/docs)
+Use the JavaScript version in [/docs](https://github.com/505e06b2/Image-to-Braille/tree/master/docs)
 
 Python prototype (obsolete):
 
