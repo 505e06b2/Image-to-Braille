@@ -54,9 +54,9 @@
 	<textarea id="text" readonly></textarea>
 	<div id="options">
 		<input id="file" type="file" onchange="filechanged(this.files[0])"><br><br>
-		<span><input title="Invert colourscheme" type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();"> Invert</span><br><br>
-		<span><input title="Monochrome dithering" type="checkbox" onchange="dithering = this.checked; filechanged();"> Dithering</span><br><br>
-		<span><input title="Disable placeholder spacing" type="checkbox" onchange="monospace = this.checked; filechanged();"> Monospace</span><br><br>
+		<span title="Invert colourscheme"><input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();"> Invert</span><br><br>
+		<span title="Monochrome dithering"><input type="checkbox" onchange="dithering = this.checked; filechanged();"> Dithering</span><br><br>
+		<span title="Disable placeholder spacing"><input type="checkbox" onchange="monospace = this.checked; filechanged();"> Monospace</span><br><br>
 		<input type="number" min="2" value="50" step="2" onchange="max_width = this.value; filechanged();"><span>Width (chars)</span><br><br>
 		<input id="red" type="range" min="0.01" max="10" value="1" step="0.01" onchange="r = this.value; filechanged();"><button onclick="r = 1; document.getElementById('red').value = 1; filechanged()">Reset</button><span>Red</span><br><br>
 		<input id="green" type="range" min="0.01" max="10" value="1" step="0.01" onchange="g = this.value; filechanged();"><button onclick="g = 1; document.getElementById('green').value = 1; filechanged()">Reset</button><span>Green</span><br><br>
