@@ -1,8 +1,11 @@
+//seriously needs a re-write lol - this was originally made a little while before "let" was the standard
+
 var file = null;
 var text = {};
 var max_width = 50;
 var inverted = false;
 var dithering = false;
+var monospace = false; //use a blank - only reliable if spaced correctly though
 var canvas;
 var ctx;
 var charcount;
@@ -20,14 +23,14 @@ window.onload = function() {
 }
 
 function get_char(current) {
-	allzeros = true;
-	for(var i = 0; i < current.length; i++) if(current[i] != 0) {allzeros = false; break;}
-    if(!allzeros) {
-        total_val = (current[0] << 0) + (current[1] << 1) + (current[2] << 2) + (current[4] << 3) + (current[5] << 4) + (current[6] << 5) + (current[3] << 6) + (current[7] << 7);
+	//Codepoint reference - https://www.ssec.wisc.edu/~tomw/java/unicode.html#x2800
+	let codepoint_offset = 0;
+    if(current.every( (x) => (x === 0) )) { //all empty
+		codepoint_offset = (monospace) ? 0 : 4; //0x2800 is a blank braille char
     } else {
-        total_val = 4;
+        codepoint_offset = (current[0] << 0) + (current[1] << 1) + (current[2] << 2) + (current[4] << 3) + (current[5] << 4) + (current[6] << 5) + (current[3] << 6) + (current[7] << 7);
 	}
-    return String.fromCharCode(0x2800 + total_val);
+    return String.fromCharCode(0x2800 + codepoint_offset);
 }
 
 function nearest_multiple(num, mult) {
@@ -48,20 +51,20 @@ function tobraille(img) {
 		canvas.width = nearest_multiple(width, 2);
 		canvas.height = nearest_multiple(height, 4);
 	}
-	
+
 	ctx = canvas.getContext("2d");
 	ctx.fillStyle="#FFFFFF"; //get rid of alpha
 	ctx.fillRect(0,0, canvas.width,canvas.height);
-	
+
 	ctx.mozImageSmoothingEnabled = false;
 	ctx.webkitImageSmoothingEnabled = false;
 	ctx.msImageSmoothingEnabled = false;
 	ctx.imageSmoothingEnabled = false;
-	
+
 	ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-	
+
 	if(dithering) rgb2bin();
-	
+
 	var output_line = "";
 
 	for(var imgy = 0; imgy < canvas.height; imgy += 4) {
