@@ -1,10 +1,8 @@
 // Credit to https://gist.github.com/PhearTheCeal/6443667 for the algorithm
 
 function Dithering(canvas) {
-	const ctx = canvas.getContext("2d");
-
 	this.canvas = canvas;
-	this.image_data = new Uint8Array(ctx.getImageData(0,0, canvas.width, canvas.height).data); //clone
+	this.image_data = new Uint8Array(canvas.getContext("2d").getImageData(0,0, canvas.width, canvas.height).data); //clone
 
 	let oldpixel;
 	let newpixel;
@@ -40,7 +38,6 @@ function Dithering(canvas) {
 		this.image_data[index+2] = clip(this.image_data[index+2] + err_blue)
 		this.image_data[index+3] = 255;
 	}
-
 
 	for(let y = 0; y < canvas.height; y++) {
 		for(let x = 0; x < canvas.width; x++) {
