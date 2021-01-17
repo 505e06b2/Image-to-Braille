@@ -54,3 +54,7 @@ body {
 input[type="number"] {
 	width: 60px;
 }
+
+a {
+	color: #eee;
+}
