@@ -3,11 +3,6 @@
 
 Use the JS version in [/docs](https://github.com/505e06b2/Image-to-Braille/tree/master/docs)
 
-Python prototype (obsolete):
-
-Dependancies: Pillow
-Usage: main.py [filepath] (Optional)[weight]
-
 Standard:
 
 ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠿⠛⠛⠋⠉⠉⠉⠉⠉⠉⠉⠛⠛⠻⠿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⠃
@@ -109,3 +104,10 @@ Dithering + Inverted:
 ⠄⠡⢐⢜⡯⣞⠇⡁⠢⠐⠠⠁⠌⠠⠁⠅⡐⠠⠁⠌⠄⠡⠠⢑⣗⢷⢽⠐⡈⠌⡙⣮⣳⢝⢮⢣⣫⡚⢜⢫⣊⢐⠠⢁⠂⡢⢣⢑⣗⢷⢈⢐⢈⠪⣯⢺⢸⢸⢯⣹⡝⣗
 ⠄⠡⢐⢱⠝⠠⠂⢂⠡⠈⠄⠡⠈⠌⠠⢁⠐⡈⠄⠡⠈⠄⠅⠂⡯⡯⣻⡂⡂⠡⠠⢉⠿⣟⣧⣛⢯⡿⡜⣨⢢⠓⡆⡂⡐⡈⢎⠢⡯⣻⠆⡂⠔⠈⡾⡸⡸⢸⡳⣸⢝⡵
 ⠄⠨⠠⠡⠈⠄⠅⠂⠄⠡⠈⠌⠠⠁⠌⡀⢂⠐⠠⠁⠌⠠⠁⢅⢸⢯⡳⣯⠠⡁⠊⠄⢬⣾⣟⣿⢿⣮⣟⣅⣇⢇⠌⡊⡆⢄⠱⡑⣝⣞⣗⢐⠨⠐⢙⠸⢘⢸⡺⡸⡕⡯
+
+
+
+Python prototype (obsolete):
+
+Dependancies: Pillow
+Usage: main.py [filepath] (Optional)[weight]
