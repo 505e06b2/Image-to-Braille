@@ -1,0 +1,46 @@
+body {
+	background: #333;
+	color: #eee;
+	font-family:sans-serif;
+
+	margin: 0px;
+	width: 100vw;
+	height: 100vh;
+
+	display: flex;
+	flex-direction: row;
+}
+
+#text {
+	display: block;
+	white-space: pre;
+	outline: none;
+	min-width: 0px;
+	height: 100%;
+	padding: 0px;
+	margin: 0px;
+	resize: none;
+	flex: 1 1;
+
+	background: white;
+	color: black;
+}
+
+#text.dark {
+	background: black;
+	color: white;
+}
+
+#options {
+	display: flex;
+	flex-direction: column;
+	flex: 0 0 25wv;
+	text-align:left;
+	border-left: 10px solid #333;
+	user-select: none;
+}
+
+#options > div {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}

@@ -1,68 +1,29 @@
 <html>
 <head>
-	<script src="main.js"></script>
+	<script src="braille.js"></script>
 	<script src="dithering.js"></script>
-	<script>
-		function darkTheme(bool) {
-			if(bool) text.classList.add("inverted");
-			else text.classList.remove("inverted");
-		}
-	</script>
-	<style>
-		body {
-			background: #333;
-			color: #eee;
-			font-family:sans-serif;
-		}
-
-		textarea {
-			position: absolute;
-			top:10px;
-			left:10px;
-			bottom:10px;
-			width:70vw;
-			padding:0px;
-			margin:0px;
-			resize: vertical;
-			display: block;
-
-			background: white;
-			color: black;
-		}
-
-		textarea.inverted {
-			background: black;
-			color: white;
-		}
-
-		div {
-			position: absolute;
-			top:10px;
-			right:10px;
-			bottom:10px;
-			width:25vw;
-			text-align:left;
-		}
-
-		div span {
-			display: inline-block;
-			float:right;
-		}
-	</style>
+	<script src="main.js"></script>
+	<link rel="stylesheet" href="style.css">
 </head>
-<body ondrop="event.preventDefault(); filechanged(event.dataTransfer.items[0].getAsFile());" ondragover="event.preventDefault()" onpaste="event.preventDefault(); filechanged(event.clipboardData.items[0].getAsFile());">
+<body>
 	<textarea id="text" readonly></textarea>
 	<div id="options">
-		<input id="file" type="file" onchange="filechanged(this.files[0])"><br><br>
-		<span title="Invert colourscheme"><input type="checkbox" onchange="inverted = this.checked; darkTheme(inverted); filechanged();"> Invert</span><br><br>
-		<span title="Monochrome dithering"><input type="checkbox" onchange="dithering = this.checked; filechanged();"> Dithering</span><br><br>
-		<span title="Disable placeholder spacing"><input type="checkbox" onchange="monospace = this.checked; filechanged();"> Monospace</span><br><br>
-		<input type="number" min="2" value="50" step="2" onchange="max_width = this.value; filechanged();"><span>Width (chars)</span><br><br>
-		<input id="red" type="range" min="0.01" max="10" value="1" step="0.01" onchange="r = this.value; filechanged();"><button onclick="r = 1; document.getElementById('red').value = 1; filechanged()">Reset</button><span>Red</span><br><br>
-		<input id="green" type="range" min="0.01" max="10" value="1" step="0.01" onchange="g = this.value; filechanged();"><button onclick="g = 1; document.getElementById('green').value = 1; filechanged()">Reset</button><span>Green</span><br><br>
-		<input id="blue" type="range" min="0.01" max="10" value="1" step="0.01" onchange="b = this.value; filechanged();"><button onclick="b = 1; document.getElementById('blue').value = 1; filechanged()">Reset</button><span>Blue</span><br><br>
-		<button onclick="text.select(); document.execCommand('copy');">Copy to clipboard</button><br><br>
-		Character Count: <span id="charcount">0</span>
+		<div><input id="file" type="file"></div>
+
+		<div title="Toggle dark theme"><input type="checkbox" id="darktheme"> Dark Theme</div>
+		<div title="Invert black with white"><input type="checkbox" id="inverted"> Invert</div>
+		<div title="Monochrome dithering"><input type="checkbox" id="dithering"> Dithering</div>
+		<div title="Disable placeholder spacing"><input type="checkbox" id="monospace"> Monospace</div>
+		<div>
+			<input type="number" min="2" value="50" step="2" id="width">
+			Width (characters)
+		</div>
+		<div>
+			<button id="clipboard">Copy to clipboard</button>
+		</div>
+		<div>
+			Character Count: <span id="charcount">0</span>
+		</div>
 	</div>
 </body>
 </html>
