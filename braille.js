@@ -61,7 +61,8 @@ function toGreyscale(r, g, b) {
 			return Math.max(r,g,b);
 
 		default:
-			throw("Greyscale mode is not valid");
+			console.error("Greyscale mode is not valid");
+			return 0;
 	}
 }
 
