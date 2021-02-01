@@ -46,6 +46,25 @@ function pixelsToCharacter(pixels_lo_hi) { //expects an array of 8 bools
     return String.fromCharCode(0x2800 + codepoint_offset);
 }
 
+function toGreyscale(r, g, b) {
+	switch(settings.greyscale_mode) {
+		case "luminance":
+			return (0.22 * r) + (0.72 * g) + (0.06 * b);
+
+		case "lightness":
+			return (Math.max(r,g,b) + Math.min(r,g,b)) / 2;
+
+		case "average":
+			return (r + g + b) / 3;
+
+		case "value":
+			return Math.max(r,g,b);
+
+		default:
+			throw("Greyscale mode is not valid");
+	}
+}
+
 function canvasToText(canvas) {
 	const ctx = canvas.getContext("2d");
 	const width = canvas.width;
@@ -72,11 +91,11 @@ function canvasToText(canvas) {
 					const index = (imgx+x + width * (imgy+y)) * 4;
 					const pixel_data = image_data.slice(index, index+4); //ctx.getImageData(imgx+x,imgy+y,1,1).data
 					if(pixel_data[3] >= 128) { //account for alpha
-						const average = (pixel_data[0] + pixel_data[1] + pixel_data[2]) / 3; //rgb
+						const grey = toGreyscale(pixel_data[0], pixel_data[1], pixel_data[2]);
 						if(settings.inverted) {
-							if(average >= 128) braille_info[dot_index] = 1;
+							if(grey >= 128) braille_info[dot_index] = 1;
 						} else {
-							if(average <= 128) braille_info[dot_index] = 1;
+							if(grey <= 128) braille_info[dot_index] = 1;
 						}
 					}
 					dot_index++;

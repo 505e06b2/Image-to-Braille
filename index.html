@@ -18,6 +18,14 @@
 		<div title="Invert black with white"><input type="checkbox" id="inverted"> Invert</div>
 		<div title="Monochrome dithering"><input type="checkbox" id="dithering"> Dithering</div>
 		<div title="Disable placeholder spacing"><input type="checkbox" id="monospace"> Monospace</div>
+		<div title="Greyscale Mode">
+			<select id="greyscale_mode">
+				<option value="luminance">Luminance</option>
+				<option value="lightness">Lightness</option>
+				<option value="average">Average</option>
+				<option value="value">Value</option>
+			</select>
+		</div>
 		<div>
 			<input type="number" min="2" value="50" step="2" max="500" id="width">
 			Width (characters)

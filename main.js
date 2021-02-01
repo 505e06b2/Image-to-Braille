@@ -4,6 +4,7 @@ const settings = {
 	last_source: "",
 
 	width: 62,
+	greyscale_mode: "luminance",
 	inverted: false,
 	dithering: false,
 	monospace: false,
@@ -49,6 +50,11 @@ function initUI() {
 	setUIElement('#inverted', settings.inverted).onchange = (e) => {settings.inverted = e.target.checked; r()};
 	setUIElement('#dithering', settings.dithering).onchange = (e) => {settings.dithering = e.target.checked; r()};
 	setUIElement('#monospace', settings.monospace).onchange = (e) => {settings.monospace = e.target.checked; r()};
+
+	document.querySelector('#greyscale_mode').onchange = (e) => {
+		settings.greyscale_mode = e.target.value;
+		parseCanvas(settings.last_canvas);
+	};
 
 	setUIElement('#width', settings.width).onchange = (e) => {
 		settings.width = e.target.value;
