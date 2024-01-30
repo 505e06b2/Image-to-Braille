@@ -41,7 +41,7 @@ function pixelsToCharacter(pixels_lo_hi) { //expects an array of 8 bools
 	}
 
 	if (codepoint_offset === 0 && settings.monospace === false) {
-		codepoint = settings.separation ? -2780 : 4;
+		codepoint_offset = settings.separation ? 0 : 4;
 		//0x2800 is a blank braille char, 0x2804 is a single dot
 		//'separation' reserves the blank
 	}
