@@ -1,5 +1,5 @@
 
-# ==> [Test it out in your browser!](https://ZhuangshengLi.github.io/Image-to-Braille/)
+# ==> [Test it out in your browser!](https://zhuangshengli.github.io/Image-to-Braille/)
 
 Standard:
 
