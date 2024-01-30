@@ -3,12 +3,12 @@ const settings = {
 	last_dithering: null,
 	last_source: "",
 
-	width: 62,
+	width: 60,
 	greyscale_mode: "luminance",
 	inverted: false,
 	dithering: false,
 	monospace: false,
-    separation: false,
+        separation: false,
 }
 
 function setUIElement(selector, value) {
