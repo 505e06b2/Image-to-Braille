@@ -3,7 +3,7 @@ const settings = {
 	last_dithering: null,
 	last_source: "",
 
-	width: 60,
+	width: 62,
 	greyscale_mode: "luminance",
 	inverted: false,
 	dithering: false,
