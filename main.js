@@ -8,6 +8,7 @@ const settings = {
 	inverted: false,
 	dithering: false,
 	monospace: false,
+    separation: false,
 }
 
 function setUIElement(selector, value) {
@@ -49,7 +50,8 @@ function initUI() {
 
 	setUIElement('#inverted', settings.inverted).onchange = (e) => {settings.inverted = e.target.checked; r()};
 	setUIElement('#dithering', settings.dithering).onchange = (e) => {settings.dithering = e.target.checked; r()};
-	setUIElement('#monospace', settings.monospace).onchange = (e) => {settings.monospace = e.target.checked; r()};
+	setUIElement('#monospace', settings.monospace).onchange = (e) => { settings.monospace = e.target.checked; r() };
+	setUIElement('#separation', settings.separation).onchange = (e) => { settings.separation = e.target.checked; r() };
 
 	document.querySelector('#greyscale_mode').onchange = (e) => {
 		settings.greyscale_mode = e.target.value;
