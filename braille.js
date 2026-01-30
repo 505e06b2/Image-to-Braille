@@ -23,6 +23,17 @@ function createImageCanvas(src) {
 			ctx.webkitImageSmoothingEnabled = false;
 			ctx.msImageSmoothingEnabled = false;
 			ctx.imageSmoothingEnabled = false;
+			for (let i = 0; i < data.length; i += 4) {
+                const alpha = data[i + 3]; // Alpha 通道
+                if (alpha === 0) {
+                    // 如果像素是完全透明的，将其替换为白色
+                    data[i] = 255;     // Red
+                    data[i + 1] = 255; // Green
+                    data[i + 2] = 255; // Blue
+                    data[i + 3] = 255; // Alpha
+                }
+            }
+
 
 			ctx.drawImage(image, 0,0, canvas.width,canvas.height);
 			resolve(canvas);
