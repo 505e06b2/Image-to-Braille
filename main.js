@@ -8,6 +8,7 @@ const settings = {
 	inverted: false,
 	dithering: false,
 	monospace: false,
+	threshold: 128,
 }
 
 function setUIElement(selector, value) {
@@ -53,6 +54,13 @@ function initUI() {
 
 	document.querySelector('#greyscale_mode').onchange = (e) => {
 		settings.greyscale_mode = e.target.value;
+		parseCanvas(settings.last_canvas);
+	};
+	
+	setUIElement('#threshold', settings.threshold).oninput = (e) => {
+		settings.threshold = parseInt(e.target.value, 10);
+		const threshValElem = document.querySelector('#threshVal');
+		if (threshValElem) threshValElem.innerText = settings.threshold;
 		parseCanvas(settings.last_canvas);
 	};
 

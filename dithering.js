@@ -41,7 +41,7 @@ function Dithering(canvas) {
 		const y = Math.floor(k / width);
 
 		const oldVal = gray[k];
-		const newVal = oldVal < 128 ? 0 : 255;
+		const newVal = oldVal < threshold ? 0 : 255;
 		gray[k] = newVal;
 
 		const err = oldVal - newVal;

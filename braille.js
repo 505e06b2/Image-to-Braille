@@ -73,8 +73,9 @@ function canvasToText(canvas) {
 
 	let image_data = [];
 	if(settings.dithering) {
-		if(settings.last_dithering === null || settings.last_dithering.canvas !== canvas) {
-			settings.last_dithering = new Dithering(canvas);
+		if(settings.last_dithering === null || settings.last_dithering.canvas !== canvas || settings.last_dithering.threshold !== settings.threshold) {
+			settings.last_dithering = new Dithering(canvas, settings.threshold);
+			settings.last_dithering.threshold = settings.threshold;
 		}
 		image_data = settings.last_dithering.image_data;
 	} else {
@@ -90,13 +91,13 @@ function canvasToText(canvas) {
 			for(let x = 0; x < 2; x++) {
 				for(let y = 0; y < 4; y++) {
 					const index = (imgx+x + width * (imgy+y)) * 4;
-					const pixel_data = image_data.slice(index, index+4); //ctx.getImageData(imgx+x,imgy+y,1,1).data
+					const pixel_data = image_data.slice(index, index+4);
 					if(pixel_data[3] >= 128) { //account for alpha
 						const grey = toGreyscale(pixel_data[0], pixel_data[1], pixel_data[2]);
 						if(settings.inverted) {
-							if(grey >= 128) braille_info[dot_index] = 1;
+							if(grey >= settings.threshold) braille_info[dot_index] = 1;
 						} else {
-							if(grey <= 128) braille_info[dot_index] = 1;
+							if(grey <= settings.threshold) braille_info[dot_index] = 1;
 						}
 					}
 					dot_index++;
