@@ -1,59 +1,77 @@
-// Credit to https://gist.github.com/PhearTheCeal/6443667 for the algorithm
+// Credit to https://gist.github.com/liamappelbe/c2c76ad1ba655aa1caae5da40bcadc7e for the algorithm
 
 function Dithering(canvas) {
 	this.canvas = canvas;
-	this.image_data = new Uint8Array(canvas.getContext("2d").getImageData(0,0, canvas.width, canvas.height).data); //clone
+	const ctx = canvas.getContext("2d");
+	const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+	this.image_data = new Uint8Array(imgData.data);
 
-	let oldpixel;
-	let newpixel;
-	let quant_error;
-	let err_red, err_green, err_blue;
+	const width = canvas.width;
+	const height = canvas.height;
+	const totalPixels = width * height;
 
-	const _getPixel = (x, y) => {
-		const index = (x + y * canvas.width) * 4;
-		return [ this.image_data[index+0], this.image_data[index+1], this.image_data[index+2] ];
+	// 1. Конвертуємо RGBA у градації сірого (Luminance)
+	const gray = new Float32Array(totalPixels);
+	for (let i = 0; i < totalPixels; i++) {
+		const idx = i * 4;
+		gray[i] = 0.2126 * this.image_data[idx] + 0.7152 * this.image_data[idx + 1] + 0.0722 * this.image_data[idx + 2];
 	}
 
-	const _setPixel = (x, y, colour) => {
-		const index = (x + y * canvas.width) * 4;
-		this.image_data[index+0] = Math.floor(colour[0]+0.5);
-		this.image_data[index+1] = Math.floor(colour[1]+0.5);
-		this.image_data[index+2] = Math.floor(colour[2]+0.5);
-		this.image_data[index+3] = 255;
+	// 2. Бітовий масив для відстеження оброблених пікселів (isDone / setDone)
+	const doneFlags = new Uint8Array(Math.ceil(totalPixels / 8));
+	const isDone = (k) => Boolean(doneFlags[k >> 3] & (1 << (k % 8)));
+	const setDone = (k) => { doneFlags[k >> 3] |= (1 << (k % 8)); };
+
+	// 3. Генеруємо випадковий порядок обходу пікселів (Fisher-Yates shuffle)
+	const order = new Int32Array(totalPixels);
+	for (let i = 0; i < totalPixels; i++) order[i] = i;
+	for (let i = totalPixels - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		const temp = order[i];
+		order[i] = order[j];
+		order[j] = temp;
 	}
 
-	const _closestPalleteColour = (pixel) => {
-		return (0.2126*pixel[0] + 0.7152*pixel[1] + 0.0722*pixel[2]) > 128 ? [255,255,255] : [0,0,0];
-	}
+	const clamp = (v) => (v <= 0 ? 0 : v >= 255 ? 255 : v);
 
-	const _colourDifference = (one, two) => {
-		return [(one[0] - two[0]), (one[1] - two[1]), (one[2] - two[2])];
-	}
+	// 4. Основний цикл Dizzy Dithering
+	for (let idx = 0; idx < totalPixels; idx++) {
+		const k = order[idx];
+		const x = k % width;
+		const y = Math.floor(k / width);
 
-	const _colourAddError = (x, y, err_red, err_green, err_blue) => {
-		const clip = (x) => (x < 0 ? 0 : (x > 255 ? 255 : x));
-		const index = (x + y * canvas.width) * 4;
-		this.image_data[index+0] = clip(this.image_data[index+0] + err_red)
-		this.image_data[index+1] = clip(this.image_data[index+1] + err_green)
-		this.image_data[index+2] = clip(this.image_data[index+2] + err_blue)
-		this.image_data[index+3] = 255;
-	}
+		const oldVal = gray[k];
+		const newVal = oldVal < 128 ? 0 : 255;
+		gray[k] = newVal;
 
-	for(let y = 0; y < canvas.height; y++) {
-		for(let x = 0; x < canvas.width; x++) {
-			oldpixel = _getPixel(x, y);
-			newpixel = _closestPalleteColour(oldpixel);
-			_setPixel(x, y, newpixel);
-			quant_error = _colourDifference(oldpixel, newpixel);
+		const err = oldVal - newVal;
 
-			err_red = quant_error[0];
-			err_green = quant_error[1];
-			err_blue = quant_error[2];
+		// Перевірка 4 сусідів (RULD: справа, знизу, зліва, зверху)
+		const neighbors = [];
+		if (x + 1 < width && !isDone(k + 1))         neighbors.push(k + 1);
+		if (y + 1 < height && !isDone(k + width))     neighbors.push(k + width);
+		if (x - 1 >= 0 && !isDone(k - 1))             neighbors.push(k - 1);
+		if (y - 1 >= 0 && !isDone(k - width))         neighbors.push(k - width);
 
-			if(x+1 < canvas.width)             _colourAddError(x+1, y,   (7/16) * err_red, (7/16) * err_green, (7/16) * err_blue);
-			if(x-1 > 0 && y+1 < canvas.height) _colourAddError(x-1, y+1, (3/16) * err_red, (3/16) * err_green, (3/16) * err_blue);
-			if(y+1 < canvas.height)            _colourAddError(x,   y+1, (5/16) * err_red, (5/16) * err_green, (5/16) * err_blue);
-			if(x+1 < canvas.width)             _colourAddError(x+1, y+1, (1/16) * err_red, (1/16) * err_green, (1/16) * err_blue);
+		const n = neighbors.length;
+		if (n > 0) {
+			const derr = err / n;
+			for (let i = 0; i < n; i++) {
+				const nk = neighbors[i];
+				gray[nk] = clamp(Math.round(gray[nk] + derr));
+			}
 		}
+
+		setDone(k);
+	}
+
+	// 5. Записуємо 1-бітний результат назад у RGBA-буфер
+	for (let i = 0; i < totalPixels; i++) {
+		const idx = i * 4;
+		const val = gray[i];
+		this.image_data[idx] = val;
+		this.image_data[idx + 1] = val;
+		this.image_data[idx + 2] = val;
+		this.image_data[idx + 3] = 255;
 	}
 }
