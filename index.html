@@ -26,6 +26,8 @@
 				<option value="value">Value</option>
 			</select>
 		</div>
+		<label for="threshold">Threshold: <span id="threshVal">128</span></label>
+		<input type="range" id="threshold" min="0" max="255" value="128" oninput="document.getElementById('threshVal').innerText = this.value">
 		<div>
 			<input type="number" min="2" value="50" step="2" max="500" id="width">
 			Width (characters)
