@@ -1,1 +1,76 @@
-*.txt
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 编辑器和IDE文件
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+.classpath
+
+# 临时文件
+*.tmp
+*.temp
+*.log
+*.cache
+
+# 依赖管理
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# 构建输出
+dist/
+build/
+out/
+
+# 环境配置文件
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# 备份文件
+*.bak
+*.backup
+*.old
+
+# 特定于HTML项目的文件
+# 如果使用预处理器
+.sass-cache/
+*.css.map
+*.scss.map
+
+# 如果使用任务运行器
+.grunt/
+.gulp/
+
+# 如果使用Webpack
+webpack-stats.json
+
+# 服务文件
+.htaccess
+web.config
+
+# 测试覆盖率报告
+coverage/
+.coverage
+.nyc_output
+
+# 其他
+*.pid
+*.seed
+*.pid.lock

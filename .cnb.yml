@@ -1,0 +1,54 @@
+$:
+# 网页远程开发
+  vscode:
+  - services:
+    - docker
+    - vscode
+    runner:
+      cpus: 1
+    docker:
+      build: .ide/Dockerfile
+    env:
+      CNB_WELCOME_CMD: fastfetch
+    stages:
+      - name: update dependencies
+        script: fastfetch
+
+# VS code打开   
+  api_trigger_cnb_dev_plugin:
+  - services:
+    - docker
+    - vscode
+    docker:
+      build: .ide/Dockerfile
+    env:
+      CNB_WELCOME_CMD: fastfetch
+    stages:
+      - name: update dependencies
+        script: fastfetch
+
+  push: 
+    - runner: 
+        cpus: 1
+      imports: https://cnb.cool/BlueScreen-Studio/Tech/secrets/-/blob/sdcom/github.yml
+      stages:
+        - name: Sync to github
+          image: tencentcom/git-sync         
+          settings:
+            target_url: https://github.com/SDCOM-0415/Image-to-Braille.git
+            auth_type: https
+            username: ${GIT_USERNAME}
+            password: ${GIT_ACCESS_TOKEN}
+            git_user: ${GIT_USERNAME}
+            git_email: ${GIT_EMAIL}
+            force: true
+            branch: master   
+        - name: 删除原文件，替换备案域名专用文件
+          script: rm ./index.html && cp ./index_zh-cn.html ./index.html 
+        - name: 部署我的 eo pages 正式环境
+          imports:
+            - https://cnb.cool/BlueScreen-Studio/Tech/secrets/-/blob/sdcom/eopages.yml
+          image: tencentcom/deploy-eopages:latest
+          # 这里需要使用您的EO_SECRET，在上面imports已经说明
+          script: edgeone pages deploy ./ -n ascii-sdcom -t $EO_SECRET    
+

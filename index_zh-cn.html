@@ -1,0 +1,52 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="将图片转换为使用盲文字符作为像素点的文本版本" data-i18n="description">
+	<title data-i18n="title">图片转ASCII艺术画</title>
+	<link rel="stylesheet" href="style.css">
+	<script src="lang.js"></script>
+	<script src="braille.js"></script>
+	<script src="dithering.js"></script>
+	<script src="main.js"></script>
+</head>
+<body>
+	<textarea id="text" readonly></textarea>
+	<div id="options">
+		<div><a id="repoLink" href="https://cnb.cool/SDCOM/Image-to-Braille" target="_blank" data-i18n="openRepo">打开仓库</a></div>
+		<div><input id="file" type="file" accept="image/*"></div>
+		<div>
+		  <select id="langSelect">
+		    <option value="zh">中文</option>
+		    <option value="en">English</option>
+		  </select>
+		</div>
+
+		<div title="切换深色主题"><input type="checkbox" id="darktheme"> <span data-i18n="darkTheme">深色主题</span></div>
+		<div title="黑白颜色反转"><input type="checkbox" id="inverted"> <span data-i18n="invert">反转颜色</span></div>
+		<div title="单色抖动效果"><input type="checkbox" id="dithering"> <span data-i18n="dithering">抖动效果</span></div>
+		<div title="禁用占位符间距"><input type="checkbox" id="monospace"> <span data-i18n="monospace">等宽字体</span></div>
+		<div title="灰度模式">
+			<select id="greyscale_mode">
+				<option value="luminance" data-i18n="luminance">亮度</option>
+				<option value="lightness" data-i18n="lightness">明度</option>
+				<option value="average" data-i18n="average">平均值</option>
+				<option value="value" data-i18n="value">数值</option>
+			</select>
+		</div>
+		<div>
+			<input type="number" min="2" value="50" step="2" max="500" id="width">
+			<span data-i18n="width">宽度（字符数）</span>
+		</div>
+		<div>
+			<button id="clipboard" data-i18n="copyToClipboard">复制到剪贴板</button>
+		</div>
+		<div>
+			<span data-i18n="characterCount">字符数量：</span> <span id="charcount">0</span>
+		</div>
+		<div style="margin-top: auto; text-align: center; padding: 10px; font-size: 12px;">
+			<a href="https://beian.miit.gov.cn/" target="_blank" style="text-decoration: none; color: #aaa;">赣ICP备2023009313号-3</a>
+		</div>
+	</div>
+</body>
+</html>
